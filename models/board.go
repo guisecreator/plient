@@ -8,9 +8,9 @@ type BoardCounts struct {
 	Followers     int32 `json:"followers"`
 }
 
-type BoardsData struct {
-	Items    []Board `json:"boards"`
-	Bookmark string      `json:"bookmark"`
+type Boards struct {
+	Items    []Board `json:"items"`
+	Bookmark string  `json:"bookmark"`
 }
 
 type Board struct {

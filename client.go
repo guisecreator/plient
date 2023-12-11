@@ -135,7 +135,7 @@ func (c *Client) GetPinsById(pinId string) ([]models.PinData, error) {
 	return responseBytes, nil
 }
 
-func (c *Client) GetBoard(bookmark string) (*models.BoardsData, error) {
+func (c *Client) GetBoard(bookmark string) (*models.Boards, error) {
 	url := "/boards/?page_size=100"
 	if len(bookmark) > 0 {
 		url += "&bookmark=" + bookmark
@@ -146,7 +146,7 @@ func (c *Client) GetBoard(bookmark string) (*models.BoardsData, error) {
 		return nil, err
 	}
 
-	var board = new(models.BoardsData)
+	var board = new(models.Boards)
 	unmarshalErr := json.Unmarshal(bytes, &board)
 	if unmarshalErr != nil {
 		return nil, unmarshalErr
@@ -190,4 +190,38 @@ func (c *Client) SearchPinsByaGivenSearchTerm(search string) (*models.PinData, e
 	}
 
 	return &pin, nil
+}
+
+func (c *Client) SearchUserBoard() (*models.Boards, error) {
+	url := "/search/boards/"
+
+	bytes, err := c.NewRequest(url)
+	if err != nil {
+		return nil, err
+	}
+
+	var board = new(models.Boards)
+	unmarshalErr := json.Unmarshal(bytes, &board)
+	if unmarshalErr != nil {
+		return nil, unmarshalErr
+	}
+
+	return board, nil
+}
+
+func (c *Client) SearchUserPins() (*models.Boards, error) {
+	url := "/search/pins/"
+
+	bytes, err := c.NewRequest(url)
+	if err != nil {
+		return nil, err
+	}
+
+	var board = new(models.Boards)
+	unmarshalErr := json.Unmarshal(bytes, &board)
+	if unmarshalErr != nil {
+		return nil, unmarshalErr
+	}
+
+	return board, nil
 }
